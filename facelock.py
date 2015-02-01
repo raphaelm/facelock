@@ -19,6 +19,7 @@ SCREENRES = (1366, 768)
 import cv2
 import cv2.cv as cv
 import time
+import os
 
 webcam = cv2.VideoCapture(0)
 cv2.namedWindow("facelock")
@@ -55,6 +56,8 @@ while rval:
 
     # record
     if detected and len(faces) > 0 and time.time() - last > PHOTOTRESHOLD:
+        if not os.path.exists("images"):
+            os.makedirs("images")
         cv2.imwrite("images/%f.jpg" % time.time(), miniframe)
         last = time.time()
 
