@@ -32,6 +32,9 @@ if webcam.isOpened():  # try to get the first frame
     rval, frame = webcam.read()
 else:
     rval = False
+if not os.path.isfile(TRAINSET):
+    print "Face cascades not found. Face recognition disabled."
+
 
 last = 0
 while rval:
