@@ -15,10 +15,13 @@ PHOTOTRESHOLD = 5
 CAMRES = (800, 448)
 # your screen's resolution
 SCREENRES = (1366, 768)
+# directory where photos are stored
+PHOTODIR = "images"
 
 import cv2
 import cv2.cv as cv
 import time
+import os
 
 webcam = cv2.VideoCapture(0)
 cv2.namedWindow("facelock")
@@ -31,6 +34,9 @@ if webcam.isOpened():  # try to get the first frame
     rval, frame = webcam.read()
 else:
     rval = False
+if not os.path.isfile(TRAINSET):
+    print "Face cascades not found. Face recognition disabled."
+
 
 last = 0
 while rval:
@@ -55,7 +61,9 @@ while rval:
 
     # record
     if detected and len(faces) > 0 and time.time() - last > PHOTOTRESHOLD:
-        cv2.imwrite("images/%f.jpg" % time.time(), miniframe)
+        if not os.path.exists(PHOTODIR):
+            os.makedirs(PHOTODIR)
+        cv2.imwrite("%s/%f.jpg" % (PHOTODIR,time.time()), miniframe)
         last = time.time()
 
     # get next frame
