@@ -24,7 +24,7 @@ import time
 import os
 
 webcam = cv2.VideoCapture(0)
-cv2.namedWindow("facelock")
+cv2.namedWindow("facelock",cv2.WND_PROP_FULLSCREEN)
 classifier = cv2.CascadeClassifier(TRAINSET)
 
 webcam.set(cv.CV_CAP_PROP_FRAME_WIDTH, CAMRES[0])
@@ -57,6 +57,7 @@ while rval:
     # live preview
     pframe = cv2.resize(frame, SCREENRES)
     cv2.putText(pframe, "Smile to unlock", (x, y), cv2.FONT_HERSHEY_DUPLEX, 2, (255, 255, 255))
+    cv2.setWindowProperty("facelock",cv2.WND_PROP_FULLSCREEN,cv.CV_WINDOW_FULLSCREEN)
     cv2.imshow("facelock", pframe)
 
     # record
