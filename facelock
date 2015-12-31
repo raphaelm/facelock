@@ -1,5 +1,4 @@
 #!/bin/sh
 python2 facelock.py &
-sleep 1; i3-msg '[title="^facelock$"]' fullscreen 
 PID=$!
 alock -auth pam; kill -9 $PID
